@@ -88,8 +88,24 @@ The first program code segment must be a student-developed procedure that:
 - [ ] Implements an algorithm that includes sequencing, selection, and iteration
 
 ```csharp
-// TODO: Select a method that meets all of the requirements.
-// I recommend your Constructor or CountLetter
+public int CountLetter(char guess)
+        {
+            if (!char.IsLetter(guess))
+            {
+                throw new ArgumentException($"Invalid character: {guess}.");
+            }
+            guess = char.ToUpper(guess);
+            int count;
+            count = 0;
+            foreach (char c in this.fullWord)
+            {
+                if (c == guess)
+                {
+                    count++;
+                }
+            }
+            return count;
+        } 
 ```
 
 ### 3c ii.
