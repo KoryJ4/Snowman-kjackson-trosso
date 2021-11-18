@@ -34,7 +34,31 @@ namespace WordGuesser
         }
         public string CheckGuess(string guess)
         {
-            throw new System.NotImplementedException();
+            guess = guess.Trim().ToUpper();
+            if (guess.Length != 1)
+            {
+                return "You must guess a single letter";
+            }
+            else if (char.IsLetter(guess[0]) == false)
+            {
+                return "You can only guess letters";
+            }
+            else if (this.lettersGuessed.Contains(guess[0]))
+            {
+                return $"You've already guessed {guess}";
+            }
+            else if (this.fullWord.Contains(guess) == false)
+            {
+                this.incorrectGuesses++;
+                this.lettersGuessed.Add(guess[0]);
+                return $"Ouch! No {guess}s";
+            }
+            int count = this.CountLetter(guess[0]);
+            if (count == 1)
+            {
+                return $"There is 1 {guess}";
+            }
+            return $"There are {count} {guess}s";
         }
 
         public int CountLetter(char guess)
@@ -58,7 +82,7 @@ namespace WordGuesser
 
         public string GetFullWord()
         {
-            throw new System.NotImplementedException();
+            return this.fullWord;
         }
 
         public string GetGuessedLetters()
@@ -82,12 +106,25 @@ namespace WordGuesser
 
         public int GetIncorrectGuesses()
         {
-            throw new System.NotImplementedException();
+            return this.incorrectGuesses;
         }
 
         public string GetWord()
         {
-            throw new System.NotImplementedException();
+            string word; // Declare a string named "word"
+            word = string.Empty; // Assign the value  to the variable guess
+            foreach (char c in this.fullWord)
+            {
+                if (this.lettersGuessed.Contains(c))
+                {
+                    word += $"{c} ";
+                }
+                else
+                {
+                    word += "_ ";
+                }
+            }
+            return word.Trim();
         }
 
         public bool IsGameOver()
